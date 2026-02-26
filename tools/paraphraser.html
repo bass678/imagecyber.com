@@ -3,162 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaFlow Pro | Undetectable AI Paraphraser</title>
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <title>AI Paraphraser Pro | Unlimited Text</title>
     <style>
-        :root {
-            --primary: #8b5cf6;
-            --bg: #030712;
-            --card: #111827;
-            --text: #f9fafb;
-            --dim: #9ca3af;
-            --accent: #22d3ee;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px; }
-
-        .container { max-width: 800px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 40px; }
-        h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
-        .accent { color: var(--primary); }
-
-        .card {
-            background: var(--card);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        }
-
-        .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        
-        label { font-size: 12px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
-        
-        textarea {
-            width: 100%;
-            height: 300px;
-            padding: 15px;
-            background: #030712;
-            border: 1px solid #374151;
-            border-radius: 12px;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #1a0b2e 0%, #4b0082 50%, #6a0dad 100%); 
+            min-height: 100vh;
+            margin: 0;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
             color: white;
-            resize: none;
+            padding: 20px;
+        }
+
+        .container { 
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(15px);
+            padding: 40px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
+            width: 100%; 
+            max-width: 650px; 
+        }
+
+        h2 { 
+            text-align: center; 
+            background: linear-gradient(to right, #e0aaff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        textarea { 
+            width: 100%; 
+            height: 180px; 
+            padding: 15px; 
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            border-radius: 12px; 
+            color: white;
+            resize: none; 
+            font-size: 16px;
             outline: none;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; gap: 15px; }
-        
-        select {
-            padding: 12px;
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 10px;
-            color: white;
-            flex-grow: 1;
-        }
-
-        .action-btn {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, var(--primary), #6d28d9);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
             transition: 0.3s;
         }
-        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
 
-        .status-badge { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 10px; display: block; }
+        textarea:focus { border-color: #bb86fc; }
+
+        .counter {
+            text-align: right;
+            font-size: 12px;
+            color: #e0aaff;
+            margin-bottom: 15px;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 16px; 
+            background: #7b2cbf; 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(123, 44, 191, 0.4);
+            transition: 0.3s;
+        }
+
+        button:hover { background: #9d4edd; transform: translateY(-2px); }
+        button:disabled { background: #4a4a4a; cursor: not-allowed; }
+
+        .loader-container {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #bb86fc;
+            transition: width 0.4s ease;
+        }
+
+        .result-box { 
+            margin-top: 25px; 
+            padding: 20px; 
+            background: rgba(187, 134, 252, 0.1); 
+            border-left: 4px solid #bb86fc; 
+            border-radius: 12px; 
+            display: none; 
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #7b2cbf; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Stealth<span class="accent">Rewrite</span> AI</h1>
-            <p style="color: var(--dim)">Bypass AI detectors with human-like paraphrasing</p>
-        </header>
-
-        <div class="card">
-            <div class="editor-grid">
-                <div>
-                    <label>Original Text</label>
-                    <textarea id="inputText" placeholder="Paste your AI-generated text here..."></textarea>
-                </div>
-                <div>
-                    <label>Humanized Output</label>
-                    <textarea id="outputText" placeholder="Rewritten text will appear here..." readonly></textarea>
-                </div>
-            </div>
-
-            <div class="controls">
-                <select id="modeSelect">
-                    <option value="standard">Standard Paraphrase</option>
-                    <option value="human">Deep Humanizer (Undetectable)</option>
-                    <option value="formal">Academic/Professional</option>
-                    <option value="creative">Creative/Casual</option>
-                </select>
-                <button class="action-btn" id="rewriteBtn">Humanize Text</button>
-            </div>
-            <span id="statusMessage" class="status-badge"></span>
+<div class="container">
+    <h2>✨ AI Paraphraser Pro</h2>
+    <textarea id="inputText" placeholder="Paste your long essay or text here..."></textarea>
+    <div class="counter" id="charCount">0 characters</div>
+    
+    <button id="btn" onclick="handleParaphrase()">Paraphrase Everything</button>
+    
+    <div id="loaderContainer" class="loader-container">
+        <div id="statusText" style="color: #e0aaff;">Processing large text...</div>
+        <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
         </div>
     </div>
+    
+    <div id="resultBox" class="result-box">
+        <strong style="color: #bb86fc;">Paraphrased Result:</strong>
+        <p id="outputText" style="line-height: 1.7; margin-top: 10px; white-space: pre-wrap;"></p>
+    </div>
+</div>
 
-    <script>
-        const rewriteBtn = document.getElementById('rewriteBtn');
-        const inputText = document.getElementById('inputText');
+<script>
+    const textarea = document.getElementById('inputText');
+    const charCount = document.getElementById('charCount');
+
+    // Live character counter
+    textarea.addEventListener('input', () => {
+        charCount.innerText = `${textarea.value.length} characters`;
+    });
+
+    async function handleParaphrase() {
+        const fullText = textarea.value.trim();
+        const btn = document.getElementById('btn');
+        const loaderContainer = document.getElementById('loaderContainer');
+        const progressFill = document.getElementById('progressFill');
+        const statusText = document.getElementById('statusText');
+        const resultBox = document.getElementById('resultBox');
         const outputText = document.getElementById('outputText');
-        const statusMessage = document.getElementById('statusMessage');
 
-        rewriteBtn.onclick = async () => {
-            const text = inputText.value.trim();
-            if (!text) return alert("Please enter some text!");
+        if (!fullText) return alert("Please enter some text!");
 
-            statusMessage.innerText = "Applying stealth rewriting patterns...";
-            rewriteBtn.disabled = true;
+        // Update with your RENDER API URL
+        const API_URL = "https://your-app-name.onrender.com";
 
-            try {
-                /* 
-                   IMPORTANT: To make this work, sign up for a free key at RapidAPI.
-                   API: 'Paraphrasing Tool' or 'Undetectable AI' 
-                */
-                const response = await fetch("YOUR_API_ENDPOINT_HERE", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-RapidAPI-Key": "YOUR_API_KEY_HERE",
-                        "X-RapidAPI-Host": "paraphrasing-tool1.p.rapidapi.com"
-                    },
-                    body: JSON.stringify({
-                        text: text,
-                        mode: document.getElementById('modeSelect').value
-                    })
+        btn.disabled = true;
+        loaderContainer.style.display = "block";
+        resultBox.style.display = "none";
+        outputText.innerText = "";
+        progressFill.style.width = "0%";
+
+        // Split text into chunks of roughly 300 characters to prevent API overload
+        const chunks = fullText.match(/.{1,300}(\s|$)/g) || [fullText];
+        let completedChunks = 0;
+
+        try {
+            for (let chunk of chunks) {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: chunk.trim() })
                 });
 
-                const result = await response.json();
-                outputText.value = result.paraphrased_text || "Error: Connect an API key to enable processing.";
-                statusMessage.innerText = "Text humanized successfully!";
-            } catch (err) {
-                statusMessage.innerText = "Error: Check your API configuration.";
-                console.error(err);
-            } finally {
-                rewriteBtn.disabled = false;
+                const data = await response.json();
+                
+                if (response.ok) {
+                    outputText.innerText += data.paraphrased + " ";
+                    completedChunks++;
+                    let progress = (completedChunks / chunks.length) * 100;
+                    progressFill.style.width = `${progress}%`;
+                    statusText.innerText = `Processing: ${Math.round(progress)}%`;
+                    resultBox.style.display = "block"; // Show partial results as they come
+                } else {
+                    throw new Error(data.error || "Server Error");
+                }
             }
-        };
-    </script>
-    <script>
-  atOptions = {
-    'key' : '67cb3df59f085e87e56c9c798ddc5c4f',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
+        } catch (error) {
+            alert("Error: " + error.message + ". Make sure your Render API is awake!");
+        } finally {
+            btn.disabled = false;
+            statusText.innerText = "Finished!";
+            setTimeout(() => { loaderContainer.style.display = "none"; }, 2000);
+        }
+    }
 </script>
-<script src="https://www.highperformanceformat.com/67cb3df59f085e87e56c9c798ddc5c4f/invoke.js"></script>
+
 </body>
 </html>
