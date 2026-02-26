@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaFlow Pro | Undetectable AI Paraphraser</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --bg: #030712;
+            --card: #111827;
+            --text: #f9fafb;
+            --dim: #9ca3af;
+            --accent: #22d3ee;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px; }
+
+        .container { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
+        .accent { color: var(--primary); }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        
+        label { font-size: 12px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+        
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            background: #030712;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            color: white;
+            resize: none;
+            outline: none;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; gap: 15px; }
+        
+        select {
+            padding: 12px;
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 10px;
+            color: white;
+            flex-grow: 1;
+        }
+
+        .action-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary), #6d28d9);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
+
+        .status-badge { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 10px; display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Stealth<span class="accent">Rewrite</span> AI</h1>
+            <p style="color: var(--dim)">Bypass AI detectors with human-like paraphrasing</p>
+        </header>
+
+        <div class="card">
+            <div class="editor-grid">
+                <div>
+                    <label>Original Text</label>
+                    <textarea id="inputText" placeholder="Paste your AI-generated text here..."></textarea>
+                </div>
+                <div>
+                    <label>Humanized Output</label>
+                    <textarea id="outputText" placeholder="Rewritten text will appear here..." readonly></textarea>
+                </div>
+            </div>
+
+            <div class="controls">
+                <select id="modeSelect">
+                    <option value="standard">Standard Paraphrase</option>
+                    <option value="human">Deep Humanizer (Undetectable)</option>
+                    <option value="formal">Academic/Professional</option>
+                    <option value="creative">Creative/Casual</option>
+                </select>
+                <button class="action-btn" id="rewriteBtn">Humanize Text</button>
+            </div>
+            <span id="statusMessage" class="status-badge"></span>
+        </div>
+    </div>
+
+    <script>
+        const rewriteBtn = document.getElementById('rewriteBtn');
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const statusMessage = document.getElementById('statusMessage');
+
+        rewriteBtn.onclick = async () => {
+            const text = inputText.value.trim();
+            if (!text) return alert("Please enter some text!");
+
+            statusMessage.innerText = "Applying stealth rewriting patterns...";
+            rewriteBtn.disabled = true;
+
+            try {
+                /* 
+                   IMPORTANT: To make this work, sign up for a free key at RapidAPI.
+                   API: 'Paraphrasing Tool' or 'Undetectable AI' 
+                */
+                const response = await fetch("YOUR_API_ENDPOINT_HERE", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-RapidAPI-Key": "YOUR_API_KEY_HERE",
+                        "X-RapidAPI-Host": "paraphrasing-tool1.p.rapidapi.com"
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        mode: document.getElementById('modeSelect').value
+                    })
+                });
+
+                const result = await response.json();
+                outputText.value = result.paraphrased_text || "Error: Connect an API key to enable processing.";
+                statusMessage.innerText = "Text humanized successfully!";
+            } catch (err) {
+                statusMessage.innerText = "Error: Check your API configuration.";
+                console.error(err);
+            } finally {
+                rewriteBtn.disabled = false;
+            }
+        };
+    </script>
+    <script>
+  atOptions = {
+    'key' : '67cb3df59f085e87e56c9c798ddc5c4f',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/67cb3df59f085e87e56c9c798ddc5c4f/invoke.js"></script>
+</body>
+</html>
