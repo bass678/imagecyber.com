@@ -10,6 +10,58 @@ body {
     color: #fff;
     overflow-x: hidden;
 }
+/* Basic Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #1a1a1a; /* Dark theme based on your image */
+    color: white;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+/* 3. Style the Toggle Button */
+.nav-toggle {
+    display: none; /* Hidden on desktop */
+    flex-direction: column;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.nav-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 2px 0;
+    transition: 0.3s;
+}
+
+/* 4. Mobile View Styling (Responsive) */
+@media (max-width: 768px) {
+    .nav-toggle { display: flex; } /* Show button on mobile */
+
+    .nav-menu {
+        display: none; /* Hide links by default */
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #222;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-menu.active { display: flex; } /* Show when toggled */
+    
+    .nav-menu a { margin: 15px 0; }
+}
 
 /* Navbar with Glassmorphism */
 .navbar {
