@@ -11,14 +11,7 @@ body {
     overflow-x: hidden;
 }
 /* Basic Navbar Styling */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #1a1a1a; /* Dark theme based on your image */
-    color: white;
-}
+
 
 .nav-menu a {
     color: white;
@@ -68,13 +61,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 15px 20px;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
-    background: rgba(5, 5, 5, 0.8);
+    background: rgba(26, 26, 26, 0.8);
 }
 
 .navbar nav a {
