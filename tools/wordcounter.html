@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter Tool</title>
+
+<style>
+/* ======= PURPLE THEME ======= */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f061a;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: #1b0a2a;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(128, 0, 255, 0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #c084fc;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #5b2c83;
+    background: #12041f;
+    color: #fff;
+    resize: none;
+    font-size: 16px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #c084fc;
+}
+
+.stats {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.stat {
+    background: #250d3a;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.stat span {
+    color: #c084fc;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Word Counter</h1>
+    <textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+
+    <div class="stats">
+        <div class="stat">Words: <span id="wordCount">0</span></div>
+        <div class="stat">Characters: <span id="charCount">0</span></div>
+        <div class="stat">Sentences: <span id="sentenceCount">0</span></div>
+        <div class="stat">Paragraphs: <span id="paraCount">0</span></div>
+    </div>
+</div>
+
+<script>
+const inputText = document.getElementById("inputText");
+const wordCount = document.getElementById("wordCount");
+const charCount = document.getElementById("charCount");
+const sentenceCount = document.getElementById("sentenceCount");
+const paraCount = document.getElementById("paraCount");
+
+function countStats() {
+    const text = inputText.value.trim();
+
+    // Word count
+    const words = text === "" ? 0 : text.split(/\s+/).length;
+
+    // Character count
+    const characters = text.length;
+
+    // Sentence count (basic)
+    const sentences = text === "" ? 0 : text.split(/[.!?]+/).filter(Boolean).length;
+
+    // Paragraph count
+    const paragraphs = text === "" ? 0 : text.split(/\n+/).filter(Boolean).length;
+
+    wordCount.textContent = words;
+    charCount.textContent = characters;
+    sentenceCount.textContent = sentences;
+    paraCount.textContent = paragraphs;
+}
+
+inputText.addEventListener("input", countStats);
+</script>
+
+</body>
+</html>
