@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Merger | ImageCyber</title>
+
+<!-- PDF-LIB CDN -->
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+<style>
+/* ===============================
+   GLOBAL DARK THEME
+================================*/
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #22c55e;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #aaaaaa;
+    margin-bottom: 30px;
+}
+
+/* ===============================
+   UPLOAD BOX
+================================*/
+.upload-box {
+    border: 2px dashed #22c55e;
+    padding: 40px 20px;
+    border-radius: 12px;
+    background: #161616;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    background: #1e1e1e;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+/* ===============================
+   FILE LIST
+================================*/
+.file-list {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.file-item {
+    background: #1c1c1c;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* ===============================
+   BUTTON
+================================*/
+button {
+    margin-top: 25px;
+    padding: 12px 30px;
+    background: #22c55e;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #16a34a;
+}
+
+/* ===============================
+   RESPONSIVE
+================================*/
+@media (max-width: 600px) {
+    .container {
+        margin: 30px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Merge PDF Files</h1>
+    <p>Select multiple PDF files and merge them into one document.</p>
+
+    <label class="upload-box">
+        Click or Drag & Drop PDF files here
+        <input type="file" id="pdfInput" multiple accept="application/pdf">
+    </label>
+
+    <div class="file-list" id="fileList"></div>
+
+    <button onclick="mergePDFs()">Merge PDFs</button>
+</div>
+
+<script>
+const pdfInput = document.getElementById('pdfInput');
+const fileList = document.getElementById('fileList');
+
+let selectedFiles = [];
+
+pdfInput.addEventListener('change', function() {
+    selectedFiles = Array.from(pdfInput.files);
+    displayFiles();
+});
+
+function displayFiles() {
+    fileList.innerHTML = '';
+    selectedFiles.forEach(file => {
+        const div = document.createElement('div');
+        div.classList.add('file-item');
+        div.textContent = file.name;
+        fileList.appendChild(div);
+    });
+}
+
+async function mergePDFs() {
+    if (selectedFiles.length < 2) {
+        alert("Please select at least two PDF files.");
+        return;
+    }
+
+    const { PDFDocument } = PDFLib;
+    const mergedPdf = await PDFDocument.create();
+
+    for (let file of selectedFiles) {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await PDFDocument.load(arrayBuffer);
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach(page => mergedPdf.addPage(page));
+    }
+
+    const mergedPdfFile = await mergedPdf.save();
+
+    const blob = new Blob([mergedPdfFile], { type: "application/pdf" });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = "merged.pdf";
+    link.click();
+}
+</script>
+
+</body>
+</html>
