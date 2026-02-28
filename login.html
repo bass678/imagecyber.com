@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Deep purple/magenta gradient background */
+            background: linear-gradient(135deg, #1a0b2e 0%, #4b1d3f 50%, #1a0b2e 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient glow effect behind the card */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 0, 150, 0.3) 0%, transparent 70%);
+            top: 20%;
+            left: 30%;
+            filter: blur(60px);
+            z-index: 0;
+        }
+
+        .login-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.08); /* Semi-transparent white */
+            backdrop-filter: blur(20px); /* Glass blur effect */
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-radius: 30px;
+            width: 360px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-icon {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px;
+        }
+
+        .user-icon img {
+            width: 50px;
+            opacity: 0.8;
+            filter: invert(1); /* Makes dark icon white */
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group span {
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 10px 10px 10px 35px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .options input {
+            margin-right: 8px;
+        }
+
+        .options a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            /* Dark gradient button */
+            background: linear-gradient(to right, #2c0e3a, #1a0b2e);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #3d1450, #251041);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <!-- User Avatar Icon -->
+        <div class="user-icon">
+            <img src="https://cdn-icons-png.flaticon.com" alt="User">
+        </div>
+
+        <form>
+            <!-- Email Input -->
+            <div class="input-group">
+                <span>✉</span>
+                <input type="email" placeholder="Email ID" required>
+            </div>
+
+            <!-- Password Input -->
+            <div class="input-group">
+                <span>🔒</span>
+                <input type="password" placeholder="Password" required>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="options">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
+                <a href="#">Forgot Password?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="login-btn">LOGIN</button>
+        </form>
+    </div>
+
+</body>
+  <script>
+    const form = document.querySelector('form');
+    const loginCard = document.querySelector('.login-card');
+    const emailInput = document.querySelector('input[type="email"]');
+    const passwordInput = document.querySelector('input[type="password"]');
+
+    form.addEventListener('submit', (e) => {
+        // Prevent actual form submission
+        e.preventDefault();
+
+        // Basic validation check
+        if (emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
+            showError("Please fill in all fields.");
+        } else {
+            // Success animation
+            document.querySelector('.login-btn').innerText = "Logging in...";
+            setTimeout(() => {
+                alert("Login successful for: " + emailInput.value);
+            }, 500);
+        }
+    });
+
+    function showError(message) {
+        // Simple shake animation using CSS injection
+        loginCard.style.border = "1px solid rgba(255, 0, 0, 0.5)";
+        loginCard.animate([
+            { transform: 'translateX(0px)' },
+            { transform: 'translateX(-10px)' },
+            { transform: 'translateX(10px)' },
+            { transform: 'translateX(0px)' }
+        ], { duration: 300 });
+
+        alert(message);
+        
+        // Reset border after 2 seconds
+        setTimeout(() => {
+            loginCard.style.border = "1px solid rgba(255, 255, 255, 0.1)";
+        }, 2000);
+    }
+</script>
+</html>
