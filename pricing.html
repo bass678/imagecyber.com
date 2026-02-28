@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Pricing Table</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background-color: #050505;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            min-height: 100vh;
+        }
+
+        h1 { margin-bottom: 20px; background: linear-gradient(to right, #fff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.5rem; }
+
+        /* Toggle switch same as before */
+        .toggle-container { display: flex; align-items: center; gap: 15px; margin-bottom: 40px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #7e22ce; }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        /* Scrollable Container with Fixed Height */
+        .table-wrapper {
+            width: 100%;
+            max-width: 950px;
+            max-height: 600px; /* Limits height for scrolling */
+            overflow-y: auto;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            text-align: center;
+        }
+
+        /* Sticky Header Logic */
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #111; /* Solid color to hide scrolling text behind it */
+        }
+
+        th, td {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        th { color: #a855f7; font-size: 1.1rem; border-bottom: 2px solid #a855f7; }
+
+        .tool-name { text-align: left; padding-left: 40px; color: #888; font-weight: 500; }
+
+        /* Column Hover Effect */
+        td:hover::after, th:hover::after {
+            content: '';
+            position: absolute;
+            top: -5000px; /* Extends highlight vertically */
+            left: 0;
+            width: 100%;
+            height: 10000px;
+            background: rgba(168, 85, 247, 0.05);
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Growing effect on hover */
+        tr:hover td { color: #fff; }
+        
+        .price-val { font-size: 2.2rem; font-weight: 700; display: block; color: #fff; }
+        .cycle { font-size: 0.8rem; color: #666; }
+
+        /* Button Styling */
+        .subscribe-btn {
+            background: #7e22ce;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .subscribe-btn:hover {
+            background: #a855f7;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Custom Scrollbar */
+        .table-wrapper::-webkit-scrollbar { width: 8px; }
+        .table-wrapper::-webkit-scrollbar-track { background: #050505; }
+        .table-wrapper::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        .table-wrapper::-webkit-scrollbar-thumb:hover { background: #444; }
+
+        .tick { color: #22c55e; font-weight: bold; }
+        .cross { color: #ef4444; opacity: 0.3; }
+    </style>
+</head>
+<body>
+
+    <h1>Choose Your Power</h1>
+
+    <div class="toggle-container">
+        <span>Monthly</span>
+        <label class="switch">
+            <input type="checkbox" id="price-toggle">
+            <span class="slider"></span>
+        </label>
+        <span style="color: #a855f7;">Yearly (-20%)</span>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding-left: 40px; background: #050505;">Platform Tools</th>
+                    <th>Basic</th>
+                    <th>Pro</th>
+                    <th>Elite</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Price Row -->
+                <tr>
+                    <td class="tool-name">Monthly Investment</td>
+                    <td><span class="price-val" id="p1">$0</span><span class="cycle" id="c1">/mo</span></td>
+                    <td><span class="price-val" id="p2">$29</span><span class="cycle" id="c2">/mo</span></td>
+                    <td><span class="price-val" id="p3">$99</span><span class="cycle" id="c3">/mo</span></td>
+                </tr>
+                <!-- Tool Rows -->
+                <tr><td class="tool-name">Automated Backups</td><td class="tick">✔</td><td class="tick">✔</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">AI Content Generator</td><td class="cross">✘</td><td class="tick">✔</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">Custom Domains</td><td class="cross">✘</td><td class="tick">✔</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">API Endpoints</td><td class="cross">✘</td><td class="cross">✘</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">Team Collaboration</td><td class="cross">✘</td><td class="tick">✔</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">Advanced Analytics</td><td class="cross">✘</td><td class="tick">✔</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">Priority Support</td><td class="cross">✘</td><td class="cross">✘</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">Whitelabel Reports</td><td class="cross">✘</td><td class="cross">✘</td><td class="tick">✔</td></tr>
+                <tr><td class="tool-name">Database Access</td><td class="cross">✘</td><td class="cross">✘</td><td class="tick">✔</td></tr>
+                <!-- Button Row -->
+                <tr>
+                    <td></td>
+                    <td><button class="subscribe-btn">Start Free</button></td>
+                    <td><button class="subscribe-btn">Get Pro</button></td>
+                    <td><button class="subscribe-btn">Go Elite</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('price-toggle');
+        const prices = {
+            monthly: ["$0", "$29", "$99", "/mo"],
+            yearly: ["$0", "$278", "$950", "/year"]
+        };
+
+        toggle.addEventListener('change', () => {
+            const data = toggle.checked ? prices.yearly : prices.monthly;
+            document.getElementById('p1').innerText = data[0];
+            document.getElementById('p2').innerText = data[1];
+            document.getElementById('p3').innerText = data[2];
+            document.getElementById('c1').innerText = data[3];
+            document.getElementById('c2').innerText = data[3];
+            document.getElementById('c3').innerText = data[3];
+        });
+    </script>
+</body>
+</html>
