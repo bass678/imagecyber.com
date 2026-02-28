@@ -176,7 +176,7 @@ p {
 .footer-brand h2 {
   font-size: 24px;
   margin-bottom: 15px;
-  color: black;
+  color: white;
 }
 
 .footer-brand p {
@@ -187,7 +187,7 @@ p {
 .footer-links h3 {
   margin-bottom: 15px;
   font-size: 18px;
-  color: black;
+  color: white;
 }
 
 .footer-links ul {
@@ -230,7 +230,7 @@ p {
 }
 
 .social-icons a:hover {
-  background: black;
+  background: transparent;
   color: #000;
   transform: translateY(-5px);
 }
