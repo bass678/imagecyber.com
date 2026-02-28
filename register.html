@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Here</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0b2e 0%, #4b1d3f 50%, #1a0b2e 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient glow effect */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.2) 0%, transparent 70%);
+            bottom: 10%;
+            right: 25%;
+            filter: blur(70px);
+            z-index: 0;
+        }
+
+        .register-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 30px;
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group span {
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 12px 10px 12px 35px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .terms {
+            text-align: left;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+
+        .terms input {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(to right, #2c0e3a, #1a0b2e);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(to right, #3d1450, #251041);
+        }
+
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login-link a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-card">
+        <h2>Create Account</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <span>👤</span>
+                <input type="text" id="fullName" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <span>✉</span>
+                <input type="email" id="email" placeholder="Email ID" required>
+            </div>
+            <div class="input-group">
+                <span>🔒</span>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="input-group">
+                <span>🛡️</span>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            </div>
+
+            <div class="terms">
+                <label>
+                    <input type="checkbox" required> I agree to the Terms & Conditions
+                </label>
+            </div>
+
+            <button type="submit" class="register-btn">REGISTER</button>
+        </form>
+
+        <p class="login-link">Already have an account? <a href="#">Login</a></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        const pass = document.getElementById('password');
+        const confirmPass = document.getElementById('confirmPassword');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (pass.value !== confirmPass.value) {
+                alert("Passwords do not match!");
+                confirmPass.style.borderBottom = "2px solid red";
+            } else {
+                alert("Registration Successful!");
+                // You would typically send data to a server here
+            }
+        });
+    </script>
+
+</body>
+</html>
